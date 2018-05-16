@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Update Downloads: ' ;
 $this->params['breadcrumbs'][] = ['label' => 'Downloads', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->downloadID, 'url' => ['view', 'id' => $model->downloadID]];
+$this->params['breadcrumbs'][] = ['label' => 'View', 'url' => ['view', 'id' => $model->downloadID]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="downloads-update">

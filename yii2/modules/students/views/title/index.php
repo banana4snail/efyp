@@ -8,12 +8,19 @@ use app\modules\students\models\Staff;
 use yii\helpers\Url;
 use kartik\export\ExportMenu;
 
+$session = Yii::$app->session;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\students\models\TitleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Titles';
-$this->params['breadcrumbs'][] = $this->title;
+if($session['role']=="fypCoordinator"){
+    $this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
+    $this->params['breadcrumbs'][] = $this->title;
+}
+else{
+    $this->params['breadcrumbs'][] = $this->title;
+}
 ?>
 <div class="title-index">
 

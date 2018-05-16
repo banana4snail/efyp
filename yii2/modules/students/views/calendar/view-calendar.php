@@ -3,8 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->params['breadcrumbs'][] = ['label' => 'FYP Calendar', 'url' => ['calendar/view-calendar']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'FYP Calendar'];
 
 ?>
 

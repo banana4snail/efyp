@@ -6,8 +6,7 @@ use app\modules\students\models\Staff;
 $user = Yii::$app->user->identity->attributes;  
 $staff = Staff::find()->where(['userID'=>$user['username']])->one();
 
-$this->params['breadcrumbs'][] = ['label' => 'Allocate Students', 'url' => ['title/allocate-students','user'=>$staff["id"]]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Allocate Students'];
 ?>
 
 <h2>Allocate Students</h2>

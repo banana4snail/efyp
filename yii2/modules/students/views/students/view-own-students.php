@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use app\modules\students\models\Students;
 
-$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'View Students'];
 
 ?>
 <h5>Please choose which FYP students to view<h5>

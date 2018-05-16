@@ -2,8 +2,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->params['breadcrumbs'][] = ['label' => 'Downloads', 'url' => ['downloads/view-download']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Downloads'];
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <h1><?= Html::encode("Downloads") ?></h1>

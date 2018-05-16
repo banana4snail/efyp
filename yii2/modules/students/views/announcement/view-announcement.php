@@ -3,8 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->params['breadcrumbs'][] = ['label' => 'Announcements', 'url' => ['announcement/view-announcement']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Announcements'];
 
 ?>
 <?php 

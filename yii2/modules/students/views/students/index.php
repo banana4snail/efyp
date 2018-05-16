@@ -8,12 +8,20 @@ use app\modules\students\models\Fyptype;
 use yii\helpers\Url;
 use kartik\export\ExportMenu;
 
+$session = Yii::$app->session;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\students\models\StudentsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Students';
+if($session['role']=="fypCoordinator"){
+$this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
 $this->params['breadcrumbs'][] = $this->title;
+}
+else
+{
+    $this->params['breadcrumbs'][] = $this->title;
+}
 ?>
 <div class="students-index">
 

@@ -4,8 +4,7 @@ use yii\grid\GridView;
 use yii\widgets\DetailView;
 use app\modules\students\models\Title;
 
-$this->params['breadcrumbs'][] = ['label' => 'My Profile', 'url' => ['students/view-students-profile','id'=>$students->studentID]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'My Profile'];
 ?>
 
 <h2><?= Html::encode("My Profile") ?></h2>

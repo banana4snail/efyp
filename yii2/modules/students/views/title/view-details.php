@@ -4,8 +4,7 @@ use yii\grid\GridView;
 use yii\widgets\DetailView;
 
 $this->params['breadcrumbs'][] = ['label' => 'FYP 1 Titles', 'url' => ['view-title']];
-$this->params['breadcrumbs'][] = ['label' => 'Project Details', 'url' => ['view-details','id'=>$titles->titleID]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Project Details'];
 ?>
 
 <h3><?= Html::encode("Project Details") ?></h3>

@@ -3,12 +3,20 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+$session = Yii::$app->session;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Students */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+if($session['role']=="fypCoordinator"){
+    $this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
+    $this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+}
+else{
+    $this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+}
 ?>
 <div class="students-view">
 

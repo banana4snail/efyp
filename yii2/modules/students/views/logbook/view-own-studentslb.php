@@ -11,17 +11,24 @@ $session = Yii::$app->session;
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\students\models\GanttchartSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = $student->name;
 if($session['role']=="lecturer"){
 	$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
 	$this->params['breadcrumbs'][] = ['label' => 'Students Profile', 'url' => ['students/view-own-students-profile','id'=>$student->studentID]];
 	$this->params['breadcrumbs'][] = ['label' =>'log book'];
-	}
-	else{
-	$this->title = $student->name;
+}
+else if($session['role']=="fypCoordinator"){
+	$this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
 	$this->params['breadcrumbs'][] = ['label' =>'log book'];
-	}
+}
+else{
+	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
+	$this->params['breadcrumbs'][] = ['label' =>'log book'];
+}
 
 ?>
 

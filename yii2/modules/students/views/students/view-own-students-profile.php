@@ -4,17 +4,23 @@ use yii\grid\GridView;
 use yii\widgets\DetailView;
 use app\modules\students\models\Title;
 $session = Yii::$app->session;
+
+$this->title = $students->name;
 if($session['role']=="lecturer"){
 	$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
-	$this->params['breadcrumbs'][] = ['label' => 'Students Profile', 'url' => ['students/view-own-students-profile','id'=>$students->studentID]];
-	$this->params['breadcrumbs'][] = $this->title;
-	}
-	else{
-	$this->title = $students->name;
+	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
+}
+else if($session['role']=="fypCoordinator"){
+    $this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];	
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$students->studentID]];
 	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
-	}
+}	
+else{
+	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$students->studentID]];
+	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
+}
 ?>
 
 <h2><?= Html::encode("Student's Profile") ?></h2>
