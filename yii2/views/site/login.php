@@ -28,11 +28,11 @@ $this->title = 'Login as';
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
     ]); ?>
-
+        <?php $model->selected = '1';?>
         <?= $form->field($model, 'selected')->radioList($model->roles)->label('') ?>
 
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username')->textInput() ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 

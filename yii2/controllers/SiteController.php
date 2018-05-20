@@ -80,58 +80,63 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load($post=Yii::$app->request->post())) {
-           $role =  $post['LoginForm']['selected'];
-           $username = $post['LoginForm']['username'];
-           $password = sha1($post['LoginForm']['password']);
-            
-            if ($role == "1" || $role == "2" ||$role == "3" ){
-                $user = User::find()
-                    ->where(['username'=>$username])
-                    ->one();
-                $roleArray = explode(",", $user->role);
-            } else if($role == "4"){
-                $user = Students::find()
-                        ->where(['studentID'=>$username])
-                        ->one();
-            }else{
-                Yii::$app->getSession()->setFlash('error', 'Please select one of the options to login.');
-            }
-
-            
-            $session = new Session;
-            $session->open();
-            if($role == "1" && in_array("1", $roleArray) && $password == $user->password){
-                
-                $session["role"] = "admin";
-                // var_dump($session["role"]);exit();  
-                $model->login();
-            
-                return $this->redirect(['students/adminhome']);
-
-            }elseif ($role == "2" && in_array("2", $roleArray) && $password == $user->password) {
-                $session["role"] = "fypCoordinator";
-                $model->login();
-                return $this->redirect(['students/coordinatorhome']);
-
-            }elseif ($role == "3" && in_array("3", $roleArray) && $password == $user->password) {
-                $session["role"] = "lecturer";
-                $model->login();
-
-                return $this->redirect(['students/lecturerhome']);
-                
-           }elseif($role == "4"){
-                $session["role"] = "student";
-                $model->login();
-                return $this->redirect(['students/home']);
-           }else{
-
-                Yii::$app->getSession()->setFlash('error', 'You are forbidden to login to this site.');
-           }
-     
-
-
-          
-        }
+            $role =  $post['LoginForm']['selected'];
+            $username = $post['LoginForm']['username'];
+            $password = sha1($post['LoginForm']['password']);
+ 
+             if ($role == "1" || $role == "2" ||$role == "3" ){
+                 $user = User::find()
+                     ->where(['username'=>$username])
+                     ->one();
+                 if($user)
+                 {$roleArray = explode(",", $user->role);}
+             } else if($role == "4"){
+                 $user = Students::find()
+                         ->where(['studentID'=>$username])
+                         ->one();
+             }else{
+                 Yii::$app->getSession()->setFlash('error', 'Please select one of the options to login.');
+             }
+ 
+             if($user)
+             {
+                 $session = new Session;
+                 $session->open();
+                 if($role == "1" && in_array("1", $roleArray) && $password == $user->password){
+                     
+                     $session["role"] = "admin";
+                     // var_dump($session["role"]);exit();  
+                     $model->login();
+                     return $this->redirect(['students/adminhome']);
+ 
+                 }elseif ($role == "2" && in_array("2", $roleArray) && $password == $user->password) {
+                     $session["role"] = "fypCoordinator";
+                     $model->login();
+                     return $this->redirect(['students/coordinatorhome']);
+ 
+                 }elseif ($role == "3" && in_array("3", $roleArray) && $password == $user->password) {
+                     $session["role"] = "lecturer";
+                     $model->login();
+ 
+                     return $this->redirect(['students/lecturerhome']);
+                     
+                 }elseif($role == "4"){
+                         $session["role"] = "student";
+                         $model->login();
+                         return $this->redirect(['students/home']);
+                 }else{
+ 
+                         Yii::$app->getSession()->setFlash('error', 'You are forbidden to login to this site.');
+                 }
+             }
+             else
+             {
+                 Yii::$app->getSession()->setFlash('error', 'You are forbidden to login to this site.');
+             }
+ 
+ 
+           
+         }
 
         return $this->render('login', [
             'model' => $model,
