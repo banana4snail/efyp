@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 
 $this->title = $model->fypID;
 $this->params['breadcrumbs'][] = ['label' => 'Fyptypes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->fypType;
 ?>
 <div class="fyptype-view">
 

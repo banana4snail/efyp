@@ -201,6 +201,7 @@ class LogbookController extends Controller
         // $model->acknowledgement = 
         // $model->save();
         $model = $this->findModel($id);
+        $student = Students::find()->where(['studentID'=>$model->student_fk])->one();
 
         if($model->load($post=Yii::$app->request->post())){
             //var_dump($post);exit();
@@ -210,6 +211,7 @@ class LogbookController extends Controller
         return $this->redirect(['view-own-studentslb','id'=>$model->student_fk]);
         } else {
             return $this->render('update_form', [
+                'student'=>$student,
                 'model' => $model,
             ]);
         }

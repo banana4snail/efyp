@@ -5,11 +5,14 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 
-
-
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Logbook */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
+$this->params['breadcrumbs'][] = ['label' => $student->name, 'url' => ['students/view-own-students-profile','id'=>$student->studentID]];
+$this->params['breadcrumbs'][] = ['label' => 'Logbooks', 'url' => ['view-own-studentslb','id'=>$student->studentID]];
+$this->params['breadcrumbs'][] = 'Give Comment';
 
 ?>
 

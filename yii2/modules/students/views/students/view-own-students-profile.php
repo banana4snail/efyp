@@ -8,7 +8,7 @@ $session = Yii::$app->session;
 $this->title = $students->name;
 if($session['role']=="lecturer"){
 	$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
-	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
+	$this->params['breadcrumbs'][] = ['label' => $this->title];
 }
 else if($session['role']=="fypCoordinator"){
     $this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];	

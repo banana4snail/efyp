@@ -15,19 +15,19 @@ $session = Yii::$app->session;
 $this->title = $student->name;
 if($session['role']=="lecturer"){
 	$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
-	$this->params['breadcrumbs'][] = ['label' => 'Students Profile', 'url' => ['students/view-own-students-profile','id'=>$student->studentID]];
-	$this->params['breadcrumbs'][] = ['label' =>'log book'];
+	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view-own-students-profile','id'=>$student->studentID]];
+	$this->params['breadcrumbs'][] = ['label' =>'Logbooks'];
 }
 else if($session['role']=="fypCoordinator"){
 	$this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
-	$this->params['breadcrumbs'][] = ['label' =>'log book'];
+	$this->params['breadcrumbs'][] = ['label' =>'Logbooks'];
 }
 else{
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
-	$this->params['breadcrumbs'][] = ['label' =>'log book'];
+	$this->params['breadcrumbs'][] = ['label' =>'Logbooks'];
 }
 
 ?>

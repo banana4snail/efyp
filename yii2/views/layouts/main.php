@@ -35,7 +35,7 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
-    ]);
+        ]);
         echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
@@ -235,7 +235,7 @@ AppAsset::register($this);
         if(Yii::$app->user->can('admin') && $session["role"]=="admin"){
             // $login = LoginForm::find()->all();
             // var_dump($login);
-
+            
             $homeUrlByRole = '?r=students/adminhome/index';
         }else if (Yii::$app->user->can('fypCoordinator') && $session["role"]=="fypCoordinator"){
             $homeUrlByRole = '?r=students/coordinatorhome/index';

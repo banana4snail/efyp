@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Update Fyptype: ' . $model->fypID;
 $this->params['breadcrumbs'][] = ['label' => 'Fyptypes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->fypID, 'url' => ['view', 'id' => $model->fypID]];
+$this->params['breadcrumbs'][] = ['label' => $model->fypType, 'url' => ['view', 'id' => $model->fypID]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="fyptype-update">

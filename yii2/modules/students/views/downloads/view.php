@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Downloads */
 
-$this->title = "View";
+$this->title = $model->documents;
 $this->params['breadcrumbs'][] = ['label' => 'Downloads', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

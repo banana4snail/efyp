@@ -10,7 +10,7 @@ use app\modules\students\models\Departments;
 
 $this->title = $model->facultyID;
 $this->params['breadcrumbs'][] = ['label' => 'Faculties', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->faculty;
 ?>
 <div class="faculty-view">
 
