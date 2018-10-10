@@ -29,10 +29,10 @@ class CourseController extends Controller
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
                 'rules' => [
-                    [
                         'allow' => true,
                         'actions' => ['index','view','create','update','delete'],
                         'roles' => ['manageCourse'],
+                ],
             ],
         ];
     }
