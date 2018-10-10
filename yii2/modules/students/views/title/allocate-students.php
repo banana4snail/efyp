@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Allocate Students'];
 			if($title->studentFk){
 				echo '<td>'.$title->studentFk->name.'</td>';	
 			}else{	?>
-				<td><?=Html::a('Allocate',['students/view-students-list', 'title'=>$title->titleID]) ?></td>
+				<td><?=Html::a('Allocate',['students/view-students-list', 'title'=>$title->titleID, 'user'=>$staff->id]) ?></td>
 		<?php } 
 					
 				  echo '</tr>';

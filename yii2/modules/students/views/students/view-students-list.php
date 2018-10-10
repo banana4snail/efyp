@@ -5,9 +5,12 @@ use yii\helpers\ArrayHelper;
 use app\modules\students\models\Faculty;
 use app\modules\students\models\Course;
 use app\modules\students\models\Title;
-$this->params['breadcrumbs'][] = ['label' => 'Allocate Students', 'url' => ['allocate-students']];
-$this->params['breadcrumbs'][] = ['label' => 'Student List', 'url' => ['view-students-list']];
-$this->params['breadcrumbs'][] = $this->title;
+use app\modules\students\models\Staff;
+$session = Yii::$app->session;
+$user = Yii::$app->user->identity->attributes;  
+$staff = Staff::find()->where(['userID'=>$user['username']])->one();
+$this->params['breadcrumbs'][] = ['label' => 'Allocate Students', 'url' => ['title/allocate-students', 'user' => $staff->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Student List'];
 ?>
 
 <?= GridView::widget([
@@ -42,8 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if(in_array($model->studentID, $registeredStudents))
                         return "-";
                     else
-                        return '<a href="/index.php?r=students%2Ftitle%2Fregister-student&student='.$model->studentID.'&title='.$title.'" >Select</a>';
-                 
+                        return '<a href="/yii2/web/index.php?r=students%2Ftitle%2Fregister-student&student='.$model->studentID.'&title='.$title.'" >Select</a>';
                 },
             ],
          ],

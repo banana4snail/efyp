@@ -236,9 +236,6 @@ class TitleController extends Controller
         ->all();
         // var_dump($student);exit();
         // $result = Yii::$app->db->createCommand('UPDATE title SET status=:1,student_fk=:$studentID WHERE titleID=:$titleID') ->execute();
-
-
-         return $this->render('allocate-students',['titles'=>$titles]);
-    
+          return $this->redirect(['lecturerhome/index']);
     }
 }
