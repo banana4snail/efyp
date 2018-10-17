@@ -5,10 +5,12 @@ namespace app\modules\students\controllers;
 use Yii;
 use app\modules\students\models\Title;
 use app\modules\students\models\TitleSearch;
+use app\modules\students\models\CsvForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\students\models\Course;
+use yii\web\UploadedFile;
 
 use yii\db\Query;
 
@@ -34,7 +36,7 @@ class TitleController extends Controller
             //     'rules' => [
             //         [
             //             'allow' => true,
-            //             'actions' => ['index','view','create','update','delete','updateform'],
+            //             'actions' => ['index','view','create','update','delete','updateform','import'],
             //             'roles' => ['manageTitle'],
             //         ],
             //         [
@@ -238,4 +240,53 @@ class TitleController extends Controller
         // $result = Yii::$app->db->createCommand('UPDATE title SET status=:1,student_fk=:$studentID WHERE titleID=:$titleID') ->execute();
           return $this->redirect(['lecturerhome/index']);
     }
+
+        public function actionImport()
+    {
+        $model = new CsvForm;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'file');
+            $filename = 'Data.'.$file->extension;
+            $upload = $file->saveAs('uploads/'.$filename);
+
+            if($upload){
+                define('CSV_PATH','uploads/');
+                $csv_file = CSV_PATH . $filename;
+                $filecsv = file($csv_file);
+                print_r($filecsv);
+            }
+            $auth = Yii::$app->authManager;
+
+            $skip = 0; //skip first line
+            foreach($filecsv as $data){
+                if ($skip!=0){
+                    $hasil = explode(",",$data);
+                    $title = new Title();
+                    $title->title = $hasil[0];
+                    $title->batch= $hasil[1];
+                    $title->category= $hasil[2];
+                    $title->faculty= $hasil[3];
+                    $title->departments= $hasil[4];
+                    $title->descriptions= $hasil[5];
+                    $title->equipment= $hasil[6];
+                    $title->requirements= $hasil[7];
+                    $title->industrialLinks= $hasil[8];
+                    $title->commProjects= $hasil[9];
+                    $title->course= $hasil[10];
+                    $title->supervisor= $hasil[11];
+                    $title->coSupervisor= $hasil[12];
+                    $title->moderator= $hasil[13];
+                    $title->save();
+                }
+                $skip++;    
+            }   
+            unlink('uploads/'.$filename);
+            return $this->redirect(['title/index']);
+        }
+        else{
+            return $this->render('../import',['model'=>$model]);
+        }
+    }   
 }

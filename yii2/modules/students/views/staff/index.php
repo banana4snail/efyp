@@ -6,6 +6,8 @@ use yii\helpers\ArrayHelper;
 use app\modules\students\models\Faculty;
 use yii\helpers\Url;
 use kartik\export\ExportMenu;
+use \kartik\file\FileInput;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\students\models\StaffSearch */
@@ -22,10 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Staff', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Import CSV', ['import'], ['class' => 'btn btn-success']) ?>
+
         
     </p>        <?php //rint_r($dataProvider->getModels()); ?>
 
     <?php
+
     $gridColumns = [
         ['class' => 'yii\grid\SerialColumn'],
         'userID',
@@ -51,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => $gridColumns,
         'filename' => 'Staffs'
     ]);
+
 ?>
 
     <?= GridView::widget([

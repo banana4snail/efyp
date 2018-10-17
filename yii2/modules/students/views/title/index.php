@@ -29,6 +29,7 @@ else{
 
     <p>
         <?= Html::a('Create Title', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Import CSV', ['import'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php
