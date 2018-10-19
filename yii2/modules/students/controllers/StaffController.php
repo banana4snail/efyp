@@ -311,73 +311,66 @@ class StaffController extends Controller
             }
             $auth = Yii::$app->authManager;
 
-            $skip = 0; //skip first line
+            $skip = 0; /*skip first line*/
             foreach($filecsv as $data){
-                if ($skip!=0){
+                if ($skip != 0){
+                    $find = array('/\s+/', '/\"/');
+                    $replace = '';
                     $hasil = explode(",",$data);
                     $user = new User();
                     $user->username = $hasil[0];
+                    $user->password = sha1("password");
+                    
                     $staff = new Staff();
                     $staff->userID= $hasil[0];
-                    
-                    if(strlen($hasil[1]) == 1){
-                        $user->password = sha1(preg_replace('/\s+/', '', $hasil[7])); //escape all whitespace
-                        $user->role = $hasil[1];
-                        $user->save();
-                        
-                        $staff->role = $hasil[1]; 
-                        $staff->name = $hasil[2];
-                        $staff->faculty_fk=$hasil[3];
-                        $staff->departments_fk=$hasil[4];
-                        $staff->email=$hasil[5];
-                        $staff->contactNo =$hasil[6];
-                        
-                            if($hasil[1] == '1'){
-                                $auth->assign($auth->getRole('admin'), $user->id);
-                            }elseif ($hasil[1] == '2'){
-                                $auth->assign($auth->getRole('fypCoordinator'), $user->id);
-                            }elseif ($hasil[1] == '3') {
-                                $auth->assign($auth->getRole('supervisor'), $user->id);
-                            }
+                    $staff->name = $hasil[1];
+                    $staff->faculty_fk=$hasil[2];
+                    $staff->departments_fk=$hasil[3];
+                    $staff->email=$hasil[4];
+                    $staff->contactNo =$hasil[5];    
 
-                    }elseif(strlen($hasil[2]) == 2){
-                        $user->password = sha1(preg_replace('/\s+/', '', $hasil[8])); 
-                        $user->role = preg_replace('/\"/', '', $hasil[1].','.$hasil[2]);
+                    /*if user has three roles*/
+                    if(isset($hasil[8])){ 
+                        $role = preg_replace($find, $replace, $hasil[6].','.$hasil[7].','.$hasil[8]);
+                        $user->role = $role;
+                        $staff->role = $role;
                         $user->save();
-                        
-                        $staff->role = preg_replace('/\"/', '', $hasil[1].','.$hasil[2]);
-                        $staff->name = $hasil[3];
-                        $staff->faculty_fk=$hasil[4];
-                        $staff->departments_fk=$hasil[5];
-                        $staff->email=$hasil[6];
-                        $staff->contactNo =$hasil[7];
-                        
-                        $role1 = preg_replace('/\"/', '', $hasil[1]);
-                        $role2 = preg_replace('/\"/', '', $hasil[2]);
-                        
-                            if($role1||$role2 == '1'){
-                                $auth->assign($auth->getRole('admin'), $user->id);
-                            }elseif ($role1||$role2 == '2'){
-                                $auth->assign($auth->getRole('fypCoordinator'), $user->id);
-                            }elseif ($role1||$role2 == '3') {
-                                $auth->assign($auth->getRole('supervisor'), $user->id);
-                            }
-                                    
-                    }elseif(strlen($hasil[3]) == 2){
-                        $user->password = sha1(preg_replace('/\s+/', '', $hasil[9])); 
-                        $user->role = preg_replace('/\"/', '', $hasil[1].','.$hasil[2].','.$hasil[3]);
-                        $user->save();
-                        
-                        $staff->role = preg_replace('/\"/', '', $hasil[1].','.$hasil[2].','.$hasil[3]);
-                        $staff->name = $hasil[4];
-                        $staff->faculty_fk=$hasil[5];
-                        $staff->departments_fk=$hasil[6];
-                        $staff->email=$hasil[7];
-                        $staff->contactNo =$hasil[8];
-                    
+
                         $auth->assign($auth->getRole('admin'), $user->id);
                         $auth->assign($auth->getRole('fypCoordinator'), $user->id);
                         $auth->assign($auth->getRole('supervisor'), $user->id);
+                    }
+                    /*if user has two roles*/
+                    elseif(isset($hasil[7])){ 
+                        $role= preg_replace($find, $replace, $hasil[6].','.$hasil[7]);
+                        $user->role = $role;
+                        $staff->role = $role;
+                        $user->save();
+                        
+                        $role1 = preg_replace($find, $replace, $hasil[6]);
+                        $role2 = preg_replace($find, $replace, $hasil[7]);
+                        
+                        if($role1||$role2 == '1'){
+                            $auth->assign($auth->getRole('admin'), $user->id);
+                        }elseif ($role1||$role2 == '2'){
+                            $auth->assign($auth->getRole('fypCoordinator'), $user->id);
+                        }elseif ($role1||$role2 == '3') {
+                            $auth->assign($auth->getRole('supervisor'), $user->id);
+                        }
+                    /*if user has one role only*/
+                    }elseif(isset($hasil[6])){
+                        $role=preg_replace($find, $replace, $hasil[6]);
+                        $staff->role = $role;
+                        $user->role = $role;
+                        $user->save();
+                        
+                        if($role == '1'){
+                            $auth->assign($auth->getRole('admin'), $user->id);
+                        }elseif ($role == '2'){
+                            $auth->assign($auth->getRole('fypCoordinator'), $user->id);
+                        }elseif ($role == '3') {
+                            $auth->assign($auth->getRole('supervisor'), $user->id);
+                        }
                     }
                     $staff->save();
                 }
@@ -385,8 +378,7 @@ class StaffController extends Controller
             }   
             unlink('uploads/'.$filename);
             return $this->redirect(['staff/index']);
-        }
-        else{
+        }else{
             return $this->render('../import',['model'=>$model]);
         }
     }   

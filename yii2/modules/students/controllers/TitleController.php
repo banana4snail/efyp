@@ -241,7 +241,7 @@ class TitleController extends Controller
           return $this->redirect(['lecturerhome/index']);
     }
 
-        public function actionImport()
+    public function actionImport()
     {
         $model = new CsvForm;
 
@@ -259,9 +259,11 @@ class TitleController extends Controller
             }
             $auth = Yii::$app->authManager;
 
-            $skip = 0; //skip first line
+            $skip = 0;
             foreach($filecsv as $data){
-                if ($skip!=0){
+                if ($skip != 0){
+                    $find = array('/\s+/', '/\"/');
+                    $replace = '';
                     $hasil = explode(",",$data);
                     $title = new Title();
                     $title->title = $hasil[0];
@@ -274,10 +276,16 @@ class TitleController extends Controller
                     $title->requirements= $hasil[7];
                     $title->industrialLinks= $hasil[8];
                     $title->commProjects= $hasil[9];
-                    $title->course= $hasil[10];
-                    $title->supervisor= $hasil[11];
-                    $title->coSupervisor= $hasil[12];
-                    $title->moderator= $hasil[13];
+                    $title->supervisor= $hasil[10];
+                    $title->coSupervisor= $hasil[11];
+                    $title->moderator= $hasil[12];
+                    if(isset($hasil[15])){
+                        $title->course= preg_replace($find, $replace, $hasil[13].','.$hasil[14].','.$hasil[15]);
+                    }elseif(isset($hasil[14])){
+                        $title->course= preg_replace($find, $replace, $hasil[13].','.$hasil[14]);
+                    }elseif(isset($hasil[13])){
+                        $title->course= $hasil[13];
+                    }
                     $title->save();
                 }
                 $skip++;    

@@ -5,6 +5,7 @@ namespace app\modules\students\controllers;
 use Yii;
 use app\modules\students\models\Students;
 use app\modules\students\models\StudentsSearch;
+use app\modules\students\models\CsvForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +39,7 @@ class StudentsController extends Controller
             //     'rules' => [
             //         [
             //             'allow' => true,
-            //             'actions' => ['index','view','create','update','delete'],
+            //             'actions' => ['index','view','create','update','delete','import'],
             //             'roles' => ['manageStudents'],
             //         ],
             //         [
@@ -283,7 +284,61 @@ class StudentsController extends Controller
         return $this->render('view-own-students-profile',['students'=>$students,'title'=>$title]);
     }
 
+    public function actionImport()
+    {
+        $model = new CsvForm;
 
+        if ($model->load($post = Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'file');
+            $filename = 'Data.'.$file->extension;
+            $upload = $file->saveAs('uploads/'.$filename);
+
+            if($upload){
+                define('CSV_PATH','uploads/');
+                $csv_file = CSV_PATH . $filename;
+                $filecsv = file($csv_file);
+                print_r($filecsv);
+            }
+            $auth = Yii::$app->authManager;
+
+           // $skip = 0;
+            foreach($filecsv as $data){
+              //  if ($skip != 0){
+ 
+                    $hasil = explode(",",$data);   
+                    $student = new Students();
+                    $student->studentID = $hasil[0];
+                    $student->name= $hasil[1];
+                    $student->race= $hasil[2];
+                    $student->gender= $hasil[3];
+                    $student->email=  $hasil[4];
+                    $student->phone=  $hasil[5];
+                    $student->course= $hasil[6];
+                    $student->fypType= $hasil[7];
+                    $student->faculty= $hasil[8];
+                    $student->picture= 'Capture.png';
+                    $student->save();
+                    if($student->save()){
+                    echo"1";}
+                    // $user = new User();
+                    // $user->username = $student->studentID;
+                    // $user->password = sha1("password");
+                    // $user->role = "4";
+                    // $user->save();  
+                   // echo"2";
+                    // $auth->assign($auth->getRole('students'), $user->id);
+                   // echo"3";
+                //}
+              //  $skip++;    
+            }   
+            unlink('uploads/'.$filename);
+            // return $this->redirect(['students/index']);
+        }
+        else{
+            return $this->render('../import',['model'=>$model]);
+        }
+    }   
 
 
 }
