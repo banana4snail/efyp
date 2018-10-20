@@ -302,9 +302,9 @@ class StudentsController extends Controller
             }
             $auth = Yii::$app->authManager;
 
-           // $skip = 0;
+            $skip = 0;
             foreach($filecsv as $data){
-              //  if ($skip != 0){
+                if ($skip != 0){
  
                     $hasil = explode(",",$data);   
                     $student = new Students();
@@ -314,26 +314,25 @@ class StudentsController extends Controller
                     $student->gender= $hasil[3];
                     $student->email=  $hasil[4];
                     $student->phone=  $hasil[5];
-                    $student->course= $hasil[6];
-                    $student->fypType= $hasil[7];
-                    $student->faculty= $hasil[8];
-                    $student->picture= 'Capture.png';
-                    $student->save();
-                    if($student->save()){
-                    echo"1";}
-                    // $user = new User();
-                    // $user->username = $student->studentID;
-                    // $user->password = sha1("password");
-                    // $user->role = "4";
-                    // $user->save();  
-                   // echo"2";
-                    // $auth->assign($auth->getRole('students'), $user->id);
-                   // echo"3";
-                //}
-              //  $skip++;    
+                    $student->faculty= $hasil[6];
+                    $student->course= $hasil[7];
+                    $student->fypType= $hasil[8];
+                    $save_status = $student->save();
+                    var_dump($save_status);
+                    
+                    $user = new User();
+                    $user->username = $student->studentID;
+                    $user->password = sha1("password");
+                    $user->role = "4";
+                    $user->save();  
+
+                    $auth->assign($auth->getRole('students'), $user->id);
+
+                }
+                $skip++;    
             }   
             unlink('uploads/'.$filename);
-            // return $this->redirect(['students/index']);
+             return $this->redirect(['students/index']);
         }
         else{
             return $this->render('../import',['model'=>$model]);
