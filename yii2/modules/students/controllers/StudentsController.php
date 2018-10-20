@@ -317,8 +317,8 @@ class StudentsController extends Controller
                     $student->faculty= $hasil[6];
                     $student->course= $hasil[7];
                     $student->fypType= $hasil[8];
-                    $save_status = $student->save();
-                    var_dump($save_status);
+                    $student->save();
+                    //var_dump($save_status);
                     
                     $user = new User();
                     $user->username = $student->studentID;
