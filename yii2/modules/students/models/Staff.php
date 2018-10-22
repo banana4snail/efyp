@@ -39,10 +39,11 @@ class Staff extends \yii\db\ActiveRecord
         return [
             [['userID', 'role', 'name', 'faculty_fk', 'departments_fk', 'email', 'contactNo','password'], 'required'],
             /*Regular Expression*/
-            ['userID','match','pattern'=> '/^.{5,}$/','message'=>'UserID must be minimum five characters(letters and numbers) '],
+            ['userID','match','pattern'=> '/^.{5,}$/','message'=>'UserID must be minimum five characters(letters and numbers).'],
+            ['name','match','pattern'=> '/^[a-zA-Z]{1}[a-zA-Z\`\'\/\s]{0,50}$/','message'=>'Please enter a valid name.'],
             ['email', 'match', 'pattern' => '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/','message'=>'Please enter a valid email address. Example: abc@gmail.com'],
             ['contactNo', 'match', 'pattern' => '/^(\+?6?01)[0-9]-*[0-9]{7,8}$/','message'=>'Please enter a valid phone number. Example: 0123456789 / 012-3456789'],
-            ['password', 'match', 'pattern' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/','message'=>'Password must be minimum eight characters, at least one letter and one number'],
+            ['password', 'match', 'pattern' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/','message'=>'Password must be minimum eight characters, at least one letter and one number.'],
             // /*Validate Input Type*/
             [['userID', 'name', 'departments_fk', 'email','role'], 'string', 'max' => 255],
             [['faculty_fk'], 'integer'],
