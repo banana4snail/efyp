@@ -8,6 +8,8 @@ use app\modules\students\models\CalendarSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\students\models\CsvForm;
+use yii\web\UploadedFile;
 
 /**
  * CalendarController implements the CRUD actions for Calendar model.
@@ -31,7 +33,7 @@ class CalendarController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','view','create','update','delete','view-calendar'],
+                        'actions' => ['index','view','create','update','delete','view-calendar','import'],
                         'roles' => ['manageCalendar'],
                     ],
                     [
@@ -146,4 +148,44 @@ class CalendarController extends Controller
         return $this->render('view-calendar',['calendar'=>$calendar]);
 
     }
+
+    public function actionImport()
+    {
+        $model = new CsvForm;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'file');
+            $filename = 'Data.'.$file->extension;
+            $upload = $file->saveAs('uploads/'.$filename);
+
+            if($upload){
+                define('CSV_PATH','uploads/');
+                $csv_file = CSV_PATH . $filename;
+                $filecsv = file($csv_file);
+                print_r($filecsv);
+            }
+            $auth = Yii::$app->authManager;
+
+            $skip = 0;
+            foreach($filecsv as $data){
+                if ($skip != 0){
+                    $find = array('/\s+/', '/\"/');
+                    $replace = '';
+                    $hasil = explode(",",$data);
+                    $calendar = new Calendar();
+                    $calendar->activities=$hasil[0];
+                    $calendar->date=Yii::$app->formatter->asDate($hasil[1], 'yyyy-MM-dd');
+                    $calendar->fypTypeID=preg_replace($find, $replace,$hasil[2]);
+                    $calendar->save();
+                }
+                $skip++;    
+            }   
+            unlink('uploads/'.$filename);
+            return $this->redirect(['calendar/index']);
+        }
+        else{
+            return $this->render('../import',['model'=>$model]);
+        }
+    }   
 }

@@ -8,6 +8,8 @@ use app\modules\students\models\DepartmentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\students\models\CsvForm;
+use yii\web\UploadedFile;
 
 /**
  * DepartmentsController implements the CRUD actions for Departments model.
@@ -31,7 +33,7 @@ class DepartmentsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','import'],
                         'roles' => ['manageDepartments'],
                     ],
                 ],
@@ -131,4 +133,43 @@ class DepartmentsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionImport()
+    {
+        $model = new CsvForm;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'file');
+            $filename = 'Data.'.$file->extension;
+            $upload = $file->saveAs('uploads/'.$filename);
+
+            if($upload){
+                define('CSV_PATH','uploads/');
+                $csv_file = CSV_PATH . $filename;
+                $filecsv = file($csv_file);
+                print_r($filecsv);
+            }
+            $auth = Yii::$app->authManager;
+
+            $skip = 0;
+            foreach($filecsv as $data){
+                if ($skip != 0){
+                    $find = array('/\s+/', '/\"/');
+                    $replace = '';
+                    $hasil = explode(",",$data);
+                    $department = new Departments();
+                    $department->department=preg_replace($find, $replace,$hasil[0]);
+                    $department->faculty_fk=preg_replace($find, $replace,$hasil[1]);
+                    $department->save();
+                }
+                $skip++;    
+            }   
+            unlink('uploads/'.$filename);
+            return $this->redirect(['departments/index']);
+        }
+        else{
+            return $this->render('../import',['model'=>$model]);
+        }
+    }   
 }

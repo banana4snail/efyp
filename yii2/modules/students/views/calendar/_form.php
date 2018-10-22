@@ -19,7 +19,7 @@ use app\modules\students\models\Fyptype;
 
     <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
     		'options' => ['placeholder' => 'Enter date'],
-    		'pluginOptions' => ['autoclose'=>true,'format' => 'yyyy-mm-dd' ] ] )?>
+    		'pluginOptions' => ['todayHighlight'=>true,'autoclose'=>true,'format' => 'yyyy-mm-dd' ] ] )?>
 
     <?= $form->field($model, 'fypTypeID')->dropDownList(
     ArrayHelper::map(Fyptype::find()->all(),'fypID','fypType'),['prompt'=>'Please choose the type of students you wish to post'])->label('FYP Type') ?>

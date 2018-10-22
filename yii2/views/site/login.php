@@ -11,10 +11,10 @@ use app\modules\students\models\Roles;
 
 $this->title = 'Login as';
 
-?>
+?><br>
 <div class="site-login">
+    <title><?= Html::encode($this->title='E-fyp Portal') ?></title>
     <h1><?= Html::encode($this->title) ?></h1>
-
 
     <p>Please fill out the following fields to login:</p>
 
@@ -30,7 +30,6 @@ $this->title = 'Login as';
     ]); ?>
         <?php $model->selected = '1';?>
         <?= $form->field($model, 'selected')->radioList($model->roles)->label('') ?>
-
 
         <?= $form->field($model, 'username')->textInput() ?>
 

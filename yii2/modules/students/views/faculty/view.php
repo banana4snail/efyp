@@ -8,14 +8,14 @@ use app\modules\students\models\Departments;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Faculty */
 
-$this->title = $model->facultyID;
+$this->title = $model->faculty;
 $this->params['breadcrumbs'][] = ['label' => 'Faculties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->faculty;
 ?>
 <div class="faculty-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <h1><?= Html::encode($model->faculty) ?></h1>
+    
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->facultyID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->facultyID], [
@@ -41,7 +41,6 @@ $this->params['breadcrumbs'][] = $model->faculty;
     <?php foreach ($departments as $department){ ?> 
         <li>
            <?=Html::encode($department['department']);?>
-
         </li>
         <?php  } ?> 
 

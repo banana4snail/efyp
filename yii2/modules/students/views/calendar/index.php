@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Set Calendar', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Import CSV', ['import'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

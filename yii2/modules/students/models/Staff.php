@@ -37,9 +37,15 @@ class Staff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userID', 'role', 'name', 'faculty_fk', 'departments_fk', 'email', 'contactNo'], 'required'],
-            [['faculty_fk'], 'integer'],
+            [['userID', 'role', 'name', 'faculty_fk', 'departments_fk', 'email', 'contactNo','password'], 'required'],
+            /*Regular Expression*/
+            ['userID','match','pattern'=> '/^.{5,}$/','message'=>'UserID must be minimum five characters(letters and numbers) '],
+            ['email', 'match', 'pattern' => '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/','message'=>'Please enter a valid email address. Example: abc@gmail.com'],
+            ['contactNo', 'match', 'pattern' => '/^(\+?6?01)[0-9]-*[0-9]{7,8}$/','message'=>'Please enter a valid phone number. Example: 0123456789 / 012-3456789'],
+            ['password', 'match', 'pattern' => '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/','message'=>'Password must be minimum eight characters, at least one letter and one number'],
+            // /*Validate Input Type*/
             [['userID', 'name', 'departments_fk', 'email','role'], 'string', 'max' => 255],
+            [['faculty_fk'], 'integer'],
             [['contactNo'], 'string', 'max' => 20],
             [['userID'], 'unique'],
             [['faculty'], 'exist', 'skipOnError' => true, 'targetClass' => Faculty::className(), 'targetAttribute' => ['faculty' => 'facultyID']],
@@ -60,6 +66,7 @@ class Staff extends \yii\db\ActiveRecord
             'departments_fk' => 'Departments',
             'email' => 'Email',
             'contactNo' => 'Contact No',
+            'password' => 'Password',
         ];
     }
 

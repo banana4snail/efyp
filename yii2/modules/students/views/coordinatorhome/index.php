@@ -1,7 +1,14 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+
+$this->title='FYP Coordinator'
 ?>
+
+<br>
+<h1><?= $this->title ?></h1>
+<title><?= Html::encode($this->title) ?></title>
+
 <ul class= "menu-container">
 
 	<li class="options">

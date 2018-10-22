@@ -1,9 +1,13 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-?>
-<h1>Admin</h1>
 
+$this->title='Admin';
+?>
+
+<br>
+<h1><?= $this->title ?></h1>
+<title><?= Html::encode($this->title) ?></title>
 
 <ul>
 	<li class="options">

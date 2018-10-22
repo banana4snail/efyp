@@ -4,7 +4,13 @@ use yii\helpers\Html;
 use app\modules\students\models\Students;
 $user = Yii::$app->user->identity->attributes;
 
+$this->title='Student'
 ?>
+
+<br>
+<h1><?= $this->title ?></h1>
+<title><?= Html::encode($this->title) ?></title>
+
 <ul class= "menu-container">
 
 

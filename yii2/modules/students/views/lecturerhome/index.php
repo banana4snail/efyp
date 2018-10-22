@@ -5,7 +5,13 @@ use app\modules\students\models\Staff;
 
 $user = Yii::$app->user->identity->attributes;  
 $staff = Staff::find()->where(['userID'=>$user['username']])->one();
+$this->title='Lecturer';
 ?>
+
+<br>
+<h1><?= $this->title ?></h1>
+<title><?= Html::encode($this->title) ?></title>
+
 <ul class= "menu-container">
 
 	<li class="options">

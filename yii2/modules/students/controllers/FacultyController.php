@@ -8,7 +8,8 @@ use app\modules\students\models\FacultySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\modules\students\models\CsvForm;
+use yii\web\UploadedFile;
 
 /**
  * FacultyController implements the CRUD actions for Faculty model.
@@ -32,7 +33,7 @@ class FacultyController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','import'],
                         'roles' => ['manageFaculty'],
                     ],
                 ],
@@ -133,4 +134,42 @@ class FacultyController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionImport()
+    {
+        $model = new CsvForm;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'file');
+            $filename = 'Data.'.$file->extension;
+            $upload = $file->saveAs('uploads/'.$filename);
+
+            if($upload){
+                define('CSV_PATH','uploads/');
+                $csv_file = CSV_PATH . $filename;
+                $filecsv = file($csv_file);
+                print_r($filecsv);
+            }
+            $auth = Yii::$app->authManager;
+
+            $skip = 0;
+            foreach($filecsv as $data){
+                if ($skip != 0){
+                    $find = array('/\s+/', '/\"/');
+                    $replace = '';
+                    $hasil = explode(",",$data);
+                    $faculty = new Faculty();
+                    $faculty->faculty=preg_replace($find, $replace,$hasil[0]);
+                    $faculty->save();
+                }
+                $skip++;    
+            }   
+            unlink('uploads/'.$filename);
+            return $this->redirect(['faculty/index']);
+        }
+        else{
+            return $this->render('../import',['model'=>$model]);
+        }
+    }   
 }
