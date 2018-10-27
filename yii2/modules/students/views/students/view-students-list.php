@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Student List'];
                     if(in_array($model->studentID, $registeredStudents))
                         return "-";
                     else
-                        return '<a href="/yii2/web/index.php?r=students%2Ftitle%2Fregister-student&student='.$model->studentID.'&title='.$title.'" >Select</a>';
+                        return '<a href="/efyp/yii2/web/index.php?r=students%2Ftitle%2Fregister-student&student='.$model->studentID.'&title='.$title.'" >Select</a>';
                 },
             ],
          ],
