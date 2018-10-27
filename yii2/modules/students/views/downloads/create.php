@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Downloads */
 
-$this->title = 'Create Downloads';
+$this->title = 'Upload Documents';
 $this->params['breadcrumbs'][] = ['label' => 'Downloads', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

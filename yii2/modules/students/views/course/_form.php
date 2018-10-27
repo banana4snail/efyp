@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'courseName')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
+        <?= Html::a('Cancel', ['/students/course'], ['class'=>'btn btn-default']) ?>
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

@@ -10,13 +10,13 @@ if($session['role']=="lecturer"){
 	$this->params['breadcrumbs'][] = ['label' => 'View Students', 'url' => ['students/view-own-students']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title];
 }
-else if($session['role']=="fypCoordinator"){
+elseif($session['role']=="fypCoordinator"){
     $this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];	
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$students->studentID]];
 	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
 }	
-else{
+elseif($session['role']=="admin"){
 	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$students->studentID]];
 	$this->params['breadcrumbs'][] = ['label' => 'Students Profile'];
@@ -70,13 +70,19 @@ else{
 			])
 
 		?>
-		<div class="btn_wrapper">
+		
+		
 		<?php $session = Yii::$app->session;
 		if(Yii::$app->user->can('supervisor') && $session['role'] =="lecturer"){ ?>
+			<?= Html::a('Cancel', ['/students/students/view-own-students'], ['class'=>'btn btn-default']) ?>
+			<div class="btn_wrapper">
 			<?= Html::a('View Log Book', ['logbook/view-own-studentslb', 'id' => $students->studentID], ['class' => 'btn btn-primary']) ?>
+			</div>
+		<?php }elseif($session['role'] =="fypCoordinator"){ ?>
+			<?= Html::a('Cancel', ['/students/students/view','id'=> $students->studentID], ['class'=>'btn btn-default']) ?>
+		<?php }elseif($session['role'] =="admin"){?>
+			<?= Html::a('Cancel', ['/students/students/view','id'=> $students->studentID], ['class'=>'btn btn-default']) ?>
 		<?php } ?>
-
-		</div>
 	</div>
 	<div class="pic">
 		<?php echo '<img src="profilepic/'.$students->picture.'">'; ?> 

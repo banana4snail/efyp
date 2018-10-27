@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Report */
 
-$this->title = 'Set Report Deadline';
+$this->title = 'Set Report Deadlines';
 $this->params['breadcrumbs'][] = ['label' => 'Reports', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

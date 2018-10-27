@@ -37,6 +37,7 @@ use app\modules\students\models\Fyptype;
 
 
     <div class="form-group">
+        <?= Html::a('Cancel', ['/students/report'], ['class'=>'btn btn-default']) ?>
         <?= Html::submitButton($model->isNewRecord ? 'Set' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

@@ -34,6 +34,7 @@ use kartik\file\FileInput;
     ArrayHelper::map(Fyptype::find()->all(),'fypID','fypType'),['prompt'=>'Please choose the type of students you wish to post'])->label('FYP Type') ?>
 
     <div class="form-group">
+        <?= Html::a('Cancel', ['/students/downloads'], ['class'=>'btn btn-default']) ?>
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
