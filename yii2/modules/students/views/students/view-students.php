@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = ['label' => 'My Profile'];
 			])
 
 		?>
+		<?= Html::a('Cancel', ['/students/home'], ['class'=>'btn btn-default']) ?>
 		<div class="btn_wrapper">
 		<?php $session = Yii::$app->session;
 		if(Yii::$app->user->can('supervisor') && $session['role'] =="lecturer"){ ?>

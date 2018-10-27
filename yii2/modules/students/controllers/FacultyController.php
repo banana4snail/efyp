@@ -149,7 +149,7 @@ class FacultyController extends Controller
                 define('CSV_PATH','uploads/');
                 $csv_file = CSV_PATH . $filename;
                 $filecsv = file($csv_file);
-                print_r($filecsv);
+                //print_r($filecsv);
             }
             $auth = Yii::$app->authManager;
 
@@ -166,10 +166,14 @@ class FacultyController extends Controller
                 $skip++;    
             }   
             unlink('uploads/'.$filename);
-            return $this->redirect(['faculty/index']);
+          
+            return $this->render('index', [
+                'searchModel' => $searchModel= new FacultySearch(),
+                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams),
+            ]);
         }
         else{
-            return $this->render('../import',['model'=>$model]);
+            return $this->render('import',['model'=>$model]);
         }
     }   
 }

@@ -137,9 +137,6 @@ class ReportController extends Controller
                         'fyptype'=>$student->fypType])
                 ->all();
 
-
-
-        
             //var_dump($submit);exit();
         return $this->render('submit',['reports'=>$reports]);
     }

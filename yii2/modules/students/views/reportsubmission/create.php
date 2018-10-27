@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\students\models\Reportsubmission */
 
-$this->title = 'Report Submission:';
-$this->params['breadcrumbs'][] = ['label' => 'Report Submission', 'url' => ['report/submit']];
+$this->title = 'Create Reportsubmission';
+$this->params['breadcrumbs'][] = ['label' => 'Reportsubmissions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reportsubmission-create">

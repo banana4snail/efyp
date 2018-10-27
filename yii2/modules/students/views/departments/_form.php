@@ -20,6 +20,7 @@ use app\modules\students\models\Faculty;
     ArrayHelper::map(Faculty::find()->all(),'facultyID','faculty'),['prompt'=>'Please Choose a Faculty'])->label('Faculty') ?>
 
     <div class="form-group">
+        <?= Html::a('Cancel', ['/students/departments'], ['class'=>'btn btn-default']) ?>
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

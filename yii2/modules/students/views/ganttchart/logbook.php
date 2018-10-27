@@ -163,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						echo '<tr class="lb_wrapper" data-week="'.$logbook->week.'" data-ack="'.$logbook->acknowledgement.'" data-comment="'.$logbook->comment.'">
 								<td>Week '.$logbook->week.'</td>
 								<td class="pre-text">'.$logbook->logbookactivity.'</td>
-								<td><a href="/logbook/'.$logbook->files.' " download>'.$logbook->files.'</td>
+								<td><a href="../web/logbook/'.$logbook->files.' " download>'.$logbook->files.'</td>
 								<td class="acknowledge"></td>
 								<td class="comments">'.$logbook->comment.'</td>
 
