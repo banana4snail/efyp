@@ -3,6 +3,7 @@
 namespace app\modules\students\controllers;
 
 use Yii;
+use app\modules\students\models\Report;
 use app\modules\students\models\Reportsubmission;
 use app\modules\students\models\ReportsubmissionSearch;
 use yii\web\Controller;
@@ -75,22 +76,19 @@ class ReportsubmissionController extends Controller
 
             if($file != ""){
                 $model->files = $file->baseName . '.' . $file->extension;
-
-                $model->files = $file->baseName . '.' . $file->extension;
                 $file->saveAs('submit/' . $model->files);
-
             }
-            $user = Yii::$app->user->identity->attributes;
-            $model->student_id = $user['username'];
+            //$user = Yii::$app->user->identity->attributes;
+            //$model->student_id = $user['username'];
             $expression = new Expression('NOW()');
             $now = (new \yii\db\Query)->select($expression)->scalar();             
             $model->submissiondate = $now;
-            $student = Students::find()->where(['studentID'=>$user['username']])->one();
+            $studentID = $model->student_id;
+            $student = Students::find()->where(['studentID'=>$studentID])->one();
             $model->courseID = $student->course;
-            $model->report = $report;
             //var_dump($model);exit();
             $model->save();
-            return $this->redirect(['report/submit']);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -108,7 +106,19 @@ class ReportsubmissionController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $file = UploadedFile::getInstance($model,'files');
+            if($file != ""){
+                $model->files = $file->baseName . '.' . $file->extension;
+                $file->saveAs('submit/' . $model->files);
+            }
+            $expression = new Expression('NOW()');
+            $now = (new \yii\db\Query)->select($expression)->scalar();             
+            $model->submissiondate = $now;
+            $studentID = $model->student_id;
+            $student = Students::find()->where(['studentID'=>$studentID])->one();
+            $model->courseID = $student->course;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

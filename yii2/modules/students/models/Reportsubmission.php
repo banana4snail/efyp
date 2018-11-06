@@ -29,11 +29,12 @@ class Reportsubmission extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'files'], 'required'],
             [['submissiondate'], 'safe'],
             [['report', 'files'], 'string', 'max' => 255],
             [['student_id'], 'string', 'max' => 20],
             [['courseID'], 'string', 'max' => 40],
+            [['files'], 'safe'],
+            [['files'], 'file', 'extensions' => 'doc, docx, pdf'],
         ];
     }
 

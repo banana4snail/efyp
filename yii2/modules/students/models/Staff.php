@@ -41,7 +41,7 @@ class Staff extends \yii\db\ActiveRecord
             /*Regular Expression*/
             ['userID','match','pattern'=> '/^[a-zA-Z0-9]{5,}$/','message'=>'UserID must be minimum five characters(letters and numbers).'],
             ['name','match','pattern'=> '/^[a-zA-Z]{1}[a-zA-Z\`\'\/\s]{0,50}$/','message'=>'Please enter a valid name.'],
-            ['email', 'match', 'pattern' => '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/','message'=>'Please enter a valid email address. Example: abc@gmail.com'],
+            ['email', 'match', 'pattern' => '/^\w+@[1a-zA-Z_]+?\.[a-zA-Z]{2,3}$/','message'=>'Please enter a valid email address. Example: abc@gmail.com'],
             ['contactNo', 'match', 'pattern' => '/^(\+?6?01)[0-9]-*[0-9]{7,8}$/','message'=>'Please enter a valid phone number. Example: 0123456789 / 012-3456789'],
             ['password', 'match', 'pattern' => '/^[a-zA-Z0-9~`!@#\$%\^&\*\(\)_\-\+={\[\}\]\|\\:;"\'<,>\.\?\/]{8,}$/','message'=>'Password must be minimum eight characters.'],
             // /*Validate Input Type*/

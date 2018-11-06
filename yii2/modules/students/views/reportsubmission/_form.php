@@ -13,6 +13,9 @@ use kartik\file\FileInput;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
+    <?= $form->field($model, 'student_id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'report')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'files')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'docx/doc/pdf/*', 'multiple' => false],
