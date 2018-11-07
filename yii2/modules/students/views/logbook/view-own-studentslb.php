@@ -20,12 +20,12 @@ if($session['role']=="lecturer"){
 }
 else if($session['role']=="fypCoordinator"){
 	$this->params['breadcrumbs'][] = ['label' => 'Search', 'url' => ['coordinatorhome/search']];
-	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['students/index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
 	$this->params['breadcrumbs'][] = ['label' =>'Logbooks'];
 }
 else{
-	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
+	$this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['students/index']];
 	$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['students/view','id'=>$student->studentID]];
 	$this->params['breadcrumbs'][] = ['label' =>'Logbooks'];
 }
