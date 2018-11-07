@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 05, 2017 at 04:41 AM
--- Server version: 5.7.19
--- PHP Version: 5.6.31
+-- Generation Time: Nov 07, 2018 at 01:39 PM
+-- Server version: 5.7.23
+-- PHP Version: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -594,7 +594,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `faculty` int(11) NOT NULL,
   `course` varchar(40) NOT NULL,
   `fypType` int(11) NOT NULL,
-  `picture` varchar(255) NOT NULL,
+  `picture` varchar(255) DEFAULT NULL,
   `studentID` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
